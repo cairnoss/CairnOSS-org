@@ -32,7 +32,7 @@ export function About() {
 							02 / About CairnOSS
 						</p>
 						<h2 className="mt-2.5 text-3xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-4xl">
-							Technology should be open to everyone.
+							Technology should be open to everyone. """"tduagdgad test"""
 						</h2>
 						<p className="mt-5 text-base leading-relaxed text-[var(--text-secondary)]">
 							Named after the cairn—a carefully stacked stone marker that guides travelers across
