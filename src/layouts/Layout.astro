@@ -10,6 +10,38 @@ const {
 	title = 'CairnOSS — Building Open. Building Better.',
 	description = 'CairnOSS is an open-source software organization focused on building, maintaining, and contributing to thoughtful, powerful, and accessible developer tools and infrastructure.',
 } = Astro.props;
+
+const siteUrl = Astro.site ?? new URL('https://cairnoss.org');
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImageUrl = new URL('/logo_transparent.png', siteUrl).href;
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Organization',
+			'@id': `${siteUrl.origin}/#organization`,
+			name: 'CairnOSS',
+			alternateName: 'Cairn + Open Source Software',
+			slogan: 'Building Open. Building Better.',
+			url: siteUrl.origin,
+			logo: ogImageUrl,
+			description,
+			sameAs: ['https://github.com/CairnOSS'],
+		},
+		{
+			'@type': 'WebSite',
+			'@id': `${siteUrl.origin}/#website`,
+			url: siteUrl.origin,
+			name: 'CairnOSS',
+			description,
+			publisher: {
+				'@id': `${siteUrl.origin}/#organization`,
+			},
+			inLanguage: 'en',
+		},
+	],
+};
 ---
 
 <!doctype html>
@@ -21,21 +53,38 @@ const {
 
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta name="author" content="CairnOSS" />
+		<meta
+			name="keywords"
+			content="CairnOSS, open source software, developer tools, infrastructure, automation, open source libraries, Go, Rust, TypeScript, Python"
+		/>
+		<meta
+			name="robots"
+			content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+		/>
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+		<link rel="manifest" href="/site.webmanifest" />
+
 		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAFAFA" />
 		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#09090B" />
 
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="en_US" />
 		<meta property="og:site_name" content="CairnOSS" />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content="/logo_transparent.png" />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:alt" content="CairnOSS stacked-stone emblem" />
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content="/logo_transparent.png" />
+		<meta name="twitter:image" content={ogImageUrl} />
+		<meta name="twitter:image:alt" content="CairnOSS stacked-stone emblem" />
 
 		<link rel="icon" type="image/png" href="/logo_transparent.png" />
 		<link rel="apple-touch-icon" href="/logo_transparent.png" />
@@ -47,6 +96,9 @@ const {
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
 		/>
+
+		<!-- Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 	</head>
 	<body>
 		<a class="cairn-skip-link" href="#main-content">Skip to main content</a>
