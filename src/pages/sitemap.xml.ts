@@ -2,7 +2,10 @@ import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = ({ site }) => {
 	const baseUrl = site ?? new URL('https://cairnoss.org');
-	const homeUrl = new URL('/', baseUrl).href;
+	const basePath = import.meta.env.BASE_URL.endsWith('/')
+		? import.meta.env.BASE_URL
+		: `${import.meta.env.BASE_URL}/`;
+	const homeUrl = new URL(basePath, baseUrl).href;
 	const lastmod = new Date().toISOString().split('T')[0];
 
 	const xml = `<?xml version="1.0" encoding="UTF-8"?>

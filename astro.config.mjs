@@ -6,7 +6,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://cairnoss.org',
+  site: process.env.SITE_URL || 'https://cairnoss.org',
+  base: process.env.BASE_PATH || '/',
   integrations: [react()],
 
   vite: {

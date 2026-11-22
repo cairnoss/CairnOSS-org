@@ -31,6 +31,9 @@
 
 ```text
 /
+├── .github/
+│   └── workflows/
+│       └── deploy.yml         # GitHub Actions CI/CD pipeline for GitHub Pages
 ├── public/
 │   ├── favicon.ico
 │   ├── favicon.svg
@@ -90,6 +93,14 @@ npx astro dev status
 npx astro dev logs
 npx astro dev stop
 ```
+
+## Deployment (GitHub Pages)
+
+Pushes to the `main` branch automatically build and publish the static site via [.github/workflows/deploy.yml](.github/workflows/deploy.yml):
+
+1. In your GitHub repository, open **Settings → Pages** and set **Source** to **GitHub Actions**.
+2. Push changes to `main` (or run **Actions → Deploy CairnOSS to GitHub Pages → Run workflow** manually).
+3. The workflow runs `actions/configure-pages@v5` so `SITE_URL` and `BASE_PATH` automatically match either a GitHub Project Pages subpath (e.g. `/CairnOSS`) or a configured custom domain.
 
 ## SEO & Content Customization
 

@@ -9,9 +9,13 @@ interface CairnMarkProps {
  * CairnOSS stacked-stone cairn emblem sourced from public/logo_transparent.png.
  */
 export function CairnMark({ size = 30, className = '' }: CairnMarkProps) {
+	const basePath = import.meta.env.BASE_URL.endsWith('/')
+		? import.meta.env.BASE_URL
+		: `${import.meta.env.BASE_URL}/`;
+
 	return (
 		<img
-			src="/logo_transparent.png"
+			src={`${basePath}logo_transparent.png`}
 			width={size}
 			height={size}
 			alt=""
