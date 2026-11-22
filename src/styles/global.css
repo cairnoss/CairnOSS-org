@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root {
+  color-scheme: light dark;
+
+  /* Light defaults + prefers-color-scheme fallback for browsers without light-dark() */
+  --bg-primary: #fafafa;
+  --bg-secondary: #ffffff;
+  --bg-elevated: #f4f4f5;
+  --bg-glass: rgba(250, 250, 250, 0.84);
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+  --border-subtle: #e4e4e7;
+  --border-strong: #d4d4d8;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-soft: rgba(37, 99, 235, 0.09);
+  --accent-violet: #7c3aed;
+  --accent-violet-soft: rgba(124, 58, 237, 0.09);
+  --grid-line: rgba(9, 9, 11, 0.045);
+  --node-stroke: rgba(82, 82, 91, 0.18);
+  --shadow-card: 0 1px 2px 0 rgba(9, 9, 11, 0.04), 0 10px 28px -14px rgba(9, 9, 11, 0.12);
+
+  @media (prefers-color-scheme: dark) {
+    --bg-primary: #09090b;
+    --bg-secondary: #111114;
+    --bg-elevated: #18181b;
+    --bg-glass: rgba(9, 9, 11, 0.78);
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --border-subtle: #27272a;
+    --border-strong: #3f3f46;
+    --accent: #3b82f6;
+    --accent-hover: #60a5fa;
+    --accent-soft: rgba(59, 130, 246, 0.12);
+    --accent-violet: #8b5cf6;
+    --accent-violet-soft: rgba(139, 92, 246, 0.12);
+    --grid-line: rgba(255, 255, 255, 0.04);
+    --node-stroke: rgba(161, 161, 170, 0.18);
+    --shadow-card: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 12px 32px -12px rgba(0, 0, 0, 0.65);
+  }
+
+  @supports (color: light-dark(white, black)) {
+    --bg-primary: light-dark(#fafafa, #09090b);
+    --bg-secondary: light-dark(#ffffff, #111114);
+    --bg-elevated: light-dark(#f4f4f5, #18181b);
+    --bg-glass: light-dark(rgba(250, 250, 250, 0.84), rgba(9, 9, 11, 0.78));
+    --text-primary: light-dark(#09090b, #fafafa);
+    --text-secondary: light-dark(#52525b, #a1a1aa);
+    --border-subtle: light-dark(#e4e4e7, #27272a);
+    --border-strong: light-dark(#d4d4d8, #3f3f46);
+    --accent: light-dark(#2563eb, #3b82f6);
+    --accent-hover: light-dark(#1d4ed8, #60a5fa);
+    --accent-soft: light-dark(rgba(37, 99, 235, 0.09), rgba(59, 130, 246, 0.12));
+    --accent-violet: light-dark(#7c3aed, #8b5cf6);
+    --accent-violet-soft: light-dark(rgba(124, 58, 237, 0.09), rgba(139, 92, 246, 0.12));
+    --grid-line: light-dark(rgba(9, 9, 11, 0.045), rgba(255, 255, 255, 0.04));
+    --node-stroke: light-dark(rgba(82, 82, 91, 0.18), rgba(161, 161, 170, 0.18));
+  }
+
+  accent-color: var(--accent);
+}
+
+html {
+  scroll-padding-top: 5rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+::selection {
+  background-color: var(--accent-soft);
+  color: var(--text-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.cairn-grid-bg {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.cairn-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.cairn-card:hover {
+  border-color: var(--border-strong);
+}
+
+.cairn-skip-link {
+  position: fixed;
+  inset-block-start: -4rem;
+  inset-inline-start: 1rem;
+  z-index: 100;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--accent);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: inset-block-start 150ms ease;
+}
+
+.cairn-skip-link:focus {
+  inset-block-start: 1rem;
+}
+
+/* Ambient float animations: opt in only when reduced motion is not requested */
+@keyframes cairn-float-slow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+@keyframes cairn-float-reverse {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 10px, 0);
+  }
+}
+
+@keyframes cairn-pulse-ring {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.18);
+  }
+}
+
+.cairn-ambient-float {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cairn-ambient-float {
+    animation: cairn-float-slow 9s ease-in-out infinite;
+  }
+
+  .cairn-ambient-float-reverse {
+    animation: cairn-float-reverse 11s ease-in-out infinite;
+  }
+
+  .cairn-ambient-pulse {
+    transform-origin: center;
+    animation: cairn-pulse-ring 5.5s ease-in-out infinite;
+  }
+}
+
+.cairn-motion-paused .cairn-ambient-float,
+.cairn-motion-paused .cairn-ambient-float-reverse,
+.cairn-motion-paused .cairn-ambient-pulse {
+  animation-play-state: paused !important;
+}
+
+/* Native dialog modal backdrop & entry styling */
+dialog.cairn-dialog {
+  margin: auto;
+  max-inline-size: min(42rem, calc(100dvw - 2rem));
+  max-block-size: calc(100dvh - 3rem);
+  border-radius: 1rem;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 0;
+  box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.7);
+}
+
+dialog.cairn-dialog::backdrop {
+  background-color: rgba(9, 9, 11, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+@media (forced-colors: active) {
+  .cairn-card,
+  dialog.cairn-dialog {
+    border: 1px solid CanvasText;
+  }
+
+  [aria-current="location"] {
+    outline: 1px solid Highlight;
+  }
+}
