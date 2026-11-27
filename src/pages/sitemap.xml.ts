@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = ({ site }) => {
-	const baseUrl = site ?? new URL('https://cairnoss.org');
+	const baseUrl = site ?? new URL('https://cairnoss.github.io');
 	const basePath = import.meta.env.BASE_URL.endsWith('/')
 		? import.meta.env.BASE_URL
 		: `${import.meta.env.BASE_URL}/`;

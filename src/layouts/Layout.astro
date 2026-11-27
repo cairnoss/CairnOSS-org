@@ -14,9 +14,10 @@ const {
 const basePath = import.meta.env.BASE_URL.endsWith('/')
 	? import.meta.env.BASE_URL
 	: `${import.meta.env.BASE_URL}/`;
-const siteUrl = Astro.site ?? new URL('https://cairnoss.org');
+const siteUrl = Astro.site ?? new URL('https://cairnoss.github.io');
 const homeUrl = new URL(basePath, siteUrl).href;
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const rawPathname = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const canonicalUrl = new URL(rawPathname, siteUrl).href;
 const logoPath = `${basePath}logo_transparent.png`;
 const sitemapPath = `${basePath}sitemap.xml`;
 const manifestPath = `${basePath}site.webmanifest`;
@@ -32,9 +33,13 @@ const structuredData = {
 			alternateName: 'Cairn + Open Source Software',
 			slogan: 'Building Open. Building Better.',
 			url: homeUrl,
-			logo: ogImageUrl,
+			email: 'cairnoss21@gmail.com',
+			logo: {
+				'@type': 'ImageObject',
+				url: ogImageUrl,
+			},
 			description,
-			sameAs: ['https://github.com/CairnOSS'],
+			sameAs: ['https://github.com/cairnoss'],
 		},
 		{
 			'@type': 'WebSite',
@@ -43,6 +48,20 @@ const structuredData = {
 			name: 'CairnOSS',
 			description,
 			publisher: {
+				'@id': `${homeUrl}#organization`,
+			},
+			inLanguage: 'en',
+		},
+		{
+			'@type': 'WebPage',
+			'@id': canonicalUrl,
+			url: canonicalUrl,
+			name: title,
+			description,
+			isPartOf: {
+				'@id': `${homeUrl}#website`,
+			},
+			about: {
 				'@id': `${homeUrl}#organization`,
 			},
 			inLanguage: 'en',
@@ -63,13 +82,15 @@ const structuredData = {
 		<meta name="author" content="CairnOSS" />
 		<meta
 			name="keywords"
-			content="CairnOSS, open source software, developer tools, infrastructure, automation, open source libraries, Go, Rust, TypeScript, Python"
+			content="CairnOSS, open source software, developer tools, infrastructure, automation, open source libraries, Visnex, TrueShh, Go, Rust, TypeScript, Python"
 		/>
 		<meta
 			name="robots"
 			content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
 		/>
 		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" hreflang="en" href={canonicalUrl} />
+		<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 		<link rel="sitemap" type="application/xml" title="Sitemap" href={sitemapPath} />
 		<link rel="manifest" href={manifestPath} />
 
@@ -84,10 +105,12 @@ const structuredData = {
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:type" content="image/png" />
 		<meta property="og:image:alt" content="CairnOSS stacked-stone emblem" />
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={canonicalUrl} />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImageUrl} />

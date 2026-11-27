@@ -6,15 +6,17 @@ export interface NavLink {
 
 export type ProjectCategory =
 	| 'All'
+	| 'Web & Platform'
 	| 'Developer Tools'
 	| 'Infrastructure'
 	| 'Desktop Applications'
 	| 'Automation'
 	| 'Open Source Libraries';
 
-export type ProjectStatus = 'Active' | 'Experimental' | 'Archived';
+export type ProjectStatus = 'Under Development' | 'Active' | 'Experimental' | 'Archived';
 
 export type ProjectIconKey =
+	| 'globe'
 	| 'terminal'
 	| 'layers'
 	| 'app-window'
@@ -22,16 +24,19 @@ export type ProjectIconKey =
 	| 'package'
 	| 'cpu';
 
-export interface SampleProject {
+export interface Project {
 	id: string;
 	name: string;
+	fullName: string;
 	category: Exclude<ProjectCategory, 'All'>;
 	status: ProjectStatus;
 	description: string;
 	stack: string[];
-	starsPlaceholder: string;
+	stars: number;
+	isPrivate?: boolean;
 	githubUrl: string;
-	docsUrl: string;
+	homepageUrl?: string;
+	docsUrl?: string;
 	icon: ProjectIconKey;
 }
 
@@ -78,7 +83,8 @@ export interface SamplePost {
 	placeholderBody: string[];
 }
 
-export const GITHUB_ORG_URL = 'https://github.com/CairnOSS';
+export const GITHUB_PROFILE_HANDLE = 'cairnoss';
+export const GITHUB_ORG_URL = 'https://github.com/cairnoss';
 
 export const NAV_LINKS: NavLink[] = [
 	{ id: 'home', label: 'Home', href: '#home' },
@@ -90,6 +96,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const PROJECT_CATEGORIES: ProjectCategory[] = [
 	'All',
+	'Web & Platform',
 	'Developer Tools',
 	'Infrastructure',
 	'Desktop Applications',
@@ -97,84 +104,54 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
 	'Open Source Libraries',
 ];
 
-export const SAMPLE_PROJECTS: SampleProject[] = [
+/**
+ * Statically reflects the three repositories from https://github.com/cairnoss,
+ * keeping all projects marked as "Under Development" until dynamic GitHub API
+ * integration is added.
+ */
+export const PROJECTS: Project[] = [
 	{
-		id: 'cairn-cli-sample',
-		name: 'cairn-cli',
+		id: 'visnex',
+		name: 'Visnex',
+		fullName: 'cairnoss/Visnex',
 		category: 'Developer Tools',
-		status: 'Active',
+		status: 'Under Development',
 		description:
-			'Sample entry for a fast, composable workspace runner and task orchestrator designed for local engineering ergonomics.',
-		stack: ['Rust', 'TypeScript', 'Linux'],
-		starsPlaceholder: '—',
-		githubUrl: 'https://github.com/CairnOSS',
-		docsUrl: '#projects',
-		icon: 'terminal',
-	},
-	{
-		id: 'stratum-mesh-sample',
-		name: 'stratum-mesh',
-		category: 'Infrastructure',
-		status: 'Active',
-		description:
-			'Sample entry for a lightweight declarative service topology and container configuration toolkit built for predictable deployments.',
-		stack: ['Go', 'Docker', 'Linux'],
-		starsPlaceholder: '—',
-		githubUrl: 'https://github.com/CairnOSS',
-		docsUrl: '#projects',
-		icon: 'layers',
-	},
-	{
-		id: 'slate-studio-sample',
-		name: 'slate-workbench',
-		category: 'Desktop Applications',
-		status: 'Experimental',
-		description:
-			'Sample entry for a cross-platform desktop workbench crafted for inspecting structured configs, logs, and local runtime state.',
-		stack: ['Flutter', 'C++', 'Rust'],
-		starsPlaceholder: '—',
-		githubUrl: 'https://github.com/CairnOSS',
-		docsUrl: '#projects',
-		icon: 'app-window',
-	},
-	{
-		id: 'relay-flow-sample',
-		name: 'relay-flow',
-		category: 'Automation',
-		status: 'Active',
-		description:
-			'Sample entry for an event-driven repository and release pipeline automation engine with clean YAML definitions.',
-		stack: ['Python', 'Go', 'Docker'],
-		starsPlaceholder: '—',
-		githubUrl: 'https://github.com/CairnOSS',
-		docsUrl: '#projects',
-		icon: 'workflow',
-	},
-	{
-		id: 'waypoint-sdk-sample',
-		name: 'waypoint-core',
-		category: 'Open Source Libraries',
-		status: 'Experimental',
-		description:
-			'Sample entry for a zero-dependency TypeScript and Python schema validation and structured telemetry library.',
-		stack: ['TypeScript', 'Python'],
-		starsPlaceholder: '—',
-		githubUrl: 'https://github.com/CairnOSS',
-		docsUrl: '#projects',
-		icon: 'package',
-	},
-	{
-		id: 'monolith-probe-sample',
-		name: 'monolith-probe',
-		category: 'Infrastructure',
-		status: 'Archived',
-		description:
-			'Sample entry illustrating an archived early prototype for kernel-level socket tracing, superseded by newer tooling.',
-		stack: ['C++', 'Linux'],
-		starsPlaceholder: '—',
-		githubUrl: 'https://github.com/CairnOSS',
-		docsUrl: '#projects',
+			'Python project currently in pre-release development at CairnOSS. Repository details will open up here once publicly released.',
+		stack: ['Python'],
+		stars: 0,
+		isPrivate: true,
+		githubUrl: 'https://github.com/cairnoss',
 		icon: 'cpu',
+	},
+	{
+		id: 'cairnoss-org',
+		name: 'CairnOSS-org',
+		fullName: 'cairnoss/CairnOSS-org',
+		category: 'Web & Platform',
+		status: 'Under Development',
+		description:
+			'Official CairnOSS open-source portal built with Astro, React, TypeScript, and Tailwind CSS to showcase our projects and community.',
+		stack: ['TypeScript', 'Astro', 'CSS'],
+		stars: 0,
+		isPrivate: false,
+		githubUrl: 'https://github.com/cairnoss/CairnOSS-org',
+		homepageUrl: 'https://cairnoss.github.io/CairnOSS-org/',
+		icon: 'globe',
+	},
+	{
+		id: 'trueshh',
+		name: 'TrueShh',
+		fullName: 'cairnoss/TrueShh',
+		category: 'Developer Tools',
+		status: 'Under Development',
+		description:
+			'A modern, lightning-fast SSH client. Secure connections, beautiful UI, and effortless server management.',
+		stack: ['TypeScript'],
+		stars: 0,
+		isPrivate: true,
+		githubUrl: 'https://github.com/cairnoss',
+		icon: 'terminal',
 	},
 ];
 
@@ -219,8 +196,8 @@ export const COMMUNITY_RESOURCES: CommunityResource[] = [
 		title: 'GitHub Organization',
 		description:
 			'Browse repositories, inspect RFCs, review open issues, and follow active engineering work across CairnOSS.',
-		label: 'github.com/CairnOSS',
-		href: 'https://github.com/CairnOSS',
+		label: 'github.com/cairnoss',
+		href: 'https://github.com/cairnoss',
 		external: true,
 		iconKey: 'github',
 	},
@@ -230,7 +207,7 @@ export const COMMUNITY_RESOURCES: CommunityResource[] = [
 		description:
 			'Propose new ideas, ask architectural questions, and share feedback directly with maintainers and contributors.',
 		label: 'Open Discussions',
-		href: 'https://github.com/orgs/CairnOSS/discussions',
+		href: 'https://github.com/cairnoss/CairnOSS-org/discussions',
 		external: true,
 		iconKey: 'message-square',
 	},
@@ -240,7 +217,7 @@ export const COMMUNITY_RESOURCES: CommunityResource[] = [
 		description:
 			'Learn how pull requests, issue triage, local setups, and code reviews work across our repositories.',
 		label: 'Read Guidelines',
-		href: 'https://github.com/CairnOSS',
+		href: 'https://github.com/cairnoss',
 		external: true,
 		iconKey: 'git-pull-request',
 	},
@@ -250,7 +227,7 @@ export const COMMUNITY_RESOURCES: CommunityResource[] = [
 		description:
 			'Our shared standards for constructive, respectful, and inclusive collaboration across every CairnOSS space.',
 		label: 'View Standards',
-		href: 'https://github.com/CairnOSS',
+		href: 'https://github.com/cairnoss',
 		external: true,
 		iconKey: 'shield-check',
 	},
