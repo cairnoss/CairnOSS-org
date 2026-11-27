@@ -1,14 +1,16 @@
 {
+  "id": "/CairnOSS-org/",
   "name": "CairnOSS",
   "short_name": "CairnOSS",
   "description": "CairnOSS is an open-source software organization focused on building, maintaining, and contributing to thoughtful, powerful, and accessible developer tools and infrastructure.",
-  "start_url": "/",
+  "start_url": "/CairnOSS-org/",
+  "scope": "/CairnOSS-org/",
   "display": "standalone",
   "background_color": "#09090B",
   "theme_color": "#09090B",
   "icons": [
     {
-      "src": "/logo_transparent.png",
+      "src": "/CairnOSS-org/logo_transparent.png",
       "sizes": "any",
       "type": "image/png",
       "purpose": "any"

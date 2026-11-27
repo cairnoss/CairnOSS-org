@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cairnoss.org/sitemap.xml
+Sitemap: https://cairnoss.github.io/CairnOSS-org/sitemap.xml

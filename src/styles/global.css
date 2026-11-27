@@ -26,6 +26,9 @@
   --grid-line: rgba(9, 9, 11, 0.045);
   --node-stroke: rgba(82, 82, 91, 0.18);
   --shadow-card: 0 1px 2px 0 rgba(9, 9, 11, 0.04), 0 10px 28px -14px rgba(9, 9, 11, 0.12);
+  --status-dev-text: #b45309;
+  --status-dev-bg: rgba(217, 119, 6, 0.1);
+  --status-dev-border: rgba(217, 119, 6, 0.28);
 
   @media (prefers-color-scheme: dark) {
     --bg-primary: #09090b;
@@ -45,6 +48,9 @@
     --grid-line: rgba(255, 255, 255, 0.04);
     --node-stroke: rgba(161, 161, 170, 0.18);
     --shadow-card: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 12px 32px -12px rgba(0, 0, 0, 0.65);
+    --status-dev-text: #fbbf24;
+    --status-dev-bg: rgba(245, 158, 11, 0.12);
+    --status-dev-border: rgba(245, 158, 11, 0.28);
   }
 
   @supports (color: light-dark(white, black)) {
@@ -63,6 +69,9 @@
     --accent-violet-soft: light-dark(rgba(124, 58, 237, 0.09), rgba(139, 92, 246, 0.12));
     --grid-line: light-dark(rgba(9, 9, 11, 0.045), rgba(255, 255, 255, 0.04));
     --node-stroke: light-dark(rgba(82, 82, 91, 0.18), rgba(161, 161, 170, 0.18));
+    --status-dev-text: light-dark(#b45309, #fbbf24);
+    --status-dev-bg: light-dark(rgba(217, 119, 6, 0.1), rgba(245, 158, 11, 0.12));
+    --status-dev-border: light-dark(rgba(217, 119, 6, 0.28), rgba(245, 158, 11, 0.28));
   }
 
   accent-color: var(--accent);

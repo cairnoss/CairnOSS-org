@@ -14,7 +14,7 @@
 - **System-Adaptive Theming**: Automatically follows the visitor's OS light/dark preference using `color-scheme: light dark`, CSS `light-dark()`, and `@media (prefers-color-scheme: dark)` fallbacks with zero flash of un-themed content.
 - **Accessible Navigation**: Sticky header with a single semantic `<nav aria-label="Primary">` landmark, `IntersectionObserver`-driven active section tracking (`aria-current="location"`), and a responsive mobile drawer.
 - **Interactive Hero**: Architectural grid, radial lighting, interconnected node SVG backdrop, and a WCAG-compliant Pause/Play ambient motion control respecting `prefers-reduced-motion`.
-- **Filterable Project Catalog**: Sample project showcase with category filters (`All`, `Developer Tools`, `Infrastructure`, `Desktop Applications`, `Automation`, `Open Source Libraries`) and status badges (`Active`, `Experimental`, `Archived`).
+- **Filterable Project Catalog**: Displays public repositories from [github.com/cairnoss](https://github.com/cairnoss) marked as `Under Development`, with category filters (`All`, `Web & Platform`, `Developer Tools`, `Infrastructure`, `Desktop Applications`, `Automation`, `Open Source Libraries`) and an API-ready data model.
 - **About & Ecosystem**: Highlights CairnOSS's core principles (*Open by Default*, *Developer First*, *Built Together*) alongside the organization's core technology stack (`Go`, `Rust`, `C++`, `Flutter`, `TypeScript`, `Python`, `Docker`, `Linux`).
 - **Community & Updates**: Direct links to GitHub, Discussions, and guidelines, plus editorial update cards backed by an accessible native `<dialog>` preview modal.
 - **Technical SEO**: Includes `robots.txt`, generated `sitemap.xml`, `site.webmanifest`, canonical URLs, absolute Open Graph & Twitter card metadata, and Schema.org JSON-LD (`Organization` + `WebSite`).
@@ -35,6 +35,7 @@
 │   └── workflows/
 │       └── deploy.yml         # GitHub Actions CI/CD pipeline for GitHub Pages
 ├── public/
+│   ├── .nojekyll              # Bypass Jekyll processing on GitHub Pages
 │   ├── favicon.ico
 │   ├── favicon.svg
 │   ├── logo.png
@@ -96,16 +97,16 @@ npx astro dev stop
 
 ## Deployment (GitHub Pages)
 
-Pushes to the `main` branch automatically build and publish the static site via [.github/workflows/deploy.yml](.github/workflows/deploy.yml):
+Pushes to the `main` branch automatically build and publish the static site to **https://cairnoss.github.io/CairnOSS-org/** via [.github/workflows/deploy.yml](.github/workflows/deploy.yml):
 
 1. In your GitHub repository, open **Settings → Pages** and set **Source** to **GitHub Actions**.
 2. Push changes to `main` (or run **Actions → Deploy CairnOSS to GitHub Pages → Run workflow** manually).
-3. The workflow runs `actions/configure-pages@v5` so `SITE_URL` and `BASE_PATH` automatically match either a GitHub Project Pages subpath (e.g. `/CairnOSS`) or a configured custom domain.
+3. The workflow runs `actions/configure-pages@v5` so `SITE_URL` and `BASE_PATH` automatically match either `https://cairnoss.github.io/CairnOSS-org/` or a configured custom domain.
 
 ## SEO & Content Customization
 
-- **Deployment Domain**: Update `site` in [astro.config.mjs](astro.config.mjs) and the `Sitemap:` URL in [public/robots.txt](public/robots.txt) if deploying under a different domain than `https://cairnoss.org`.
-- **Projects, Blog Posts, Community Links & Tech Stack**: Edit [src/data/cairnData.ts](src/data/cairnData.ts) to replace the clearly marked sample project and article placeholders with live CairnOSS repositories and announcements.
+- **Deployment Domain**: Configured for `https://cairnoss.github.io/CairnOSS-org/`. Update `site`/`base` in [astro.config.mjs](astro.config.mjs), `Sitemap:` in [public/robots.txt](public/robots.txt), and subpath URLs in [public/site.webmanifest](public/site.webmanifest) if deploying under a different domain.
+- **Projects, Blog Posts, Community Links & Tech Stack**: Edit [src/data/cairnData.ts](src/data/cairnData.ts) (`PROJECTS` mirrors [github.com/cairnoss](https://github.com/cairnoss) with `Under Development` status and is structured for future GitHub REST API integration).
 - **Brand Emblem & Favicon**: Replace [public/logo_transparent.png](public/logo_transparent.png) to update the navbar, hero strip, footer, Open Graph image, web manifest icon, and browser icon simultaneously.
 
 ## Contributing

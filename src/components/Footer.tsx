@@ -71,11 +71,11 @@ export function Footer() {
 						</h3>
 						<div className="mt-4 space-y-3">
 							<a
-								href="mailto:hello@cairnoss.org"
+								href="mailto:cairnoss21@gmail.com"
 								className="inline-flex items-center gap-2 font-mono text-xs text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
 							>
 								<Mail className="h-3.5 w-3.5 text-[var(--accent)] shrink-0" aria-hidden="true" />
-								<span>hello@cairnoss.org</span>
+								<span>cairnoss21@gmail.com</span>
 							</a>
 							<div>
 								<a
